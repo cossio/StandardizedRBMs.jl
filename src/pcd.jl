@@ -13,7 +13,7 @@ function RestrictedBoltzmannMachines.pcd!(
     ps = (; visible = rbm.visible.par, hidden = rbm.hidden.par, w = rbm.w),
     state = setup(optim, ps), # initialize optimiser state
     callback = Returns(nothing), # called for every batch
-    zerosum::Bool = true
+    zerosum::Bool = true, rescale_hidden::Bool = true
 )
     @assert size(data) == (size(rbm.visible)..., size(data)[end])
     @assert isnothing(wts) || _nobs(data) == _nobs(wts)
@@ -21,14 +21,14 @@ function RestrictedBoltzmannMachines.pcd!(
 
     zerosum && zerosum!(rbm)
 
-    whiten_visible_from_data!(rbm, data; wts, ϵ = ϵv)
+    standardize_visible_from_data!(rbm, data; wts, ϵ = ϵv)
 
     for (iter, (vd, wd)) in zip(1:iters, infinite_minibatches(data, wts; batchsize, shuffle))
         # update fantasy chains
         vm .= sample_v_from_v(rbm, vm; steps)
 
-        # update hidden affine transform
-        whiten_hidden_from_v!(rbm, vd; damping, wts=wd, ϵ=ϵh)
+        # update standardization
+        standardize_hidden_from_v!(rbm, vd; damping, wts=wd, ϵ=ϵh)
 
         # compute gradient
         ∂d = ∂free_energy(rbm, vd; wts = wd, moments)
@@ -47,6 +47,7 @@ function RestrictedBoltzmannMachines.pcd!(
         state, ps = update!(state, ps, gs)
 
         zerosum && zerosum!(rbm)
+        rescale_hidden && rescale_hidden_activations!(rbm)
 
         callback(; rbm, optim, iter, vm, vd, wd)
     end
