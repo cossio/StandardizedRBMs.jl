@@ -3,7 +3,6 @@ using Test: @test, @testset, @inferred
 using Statistics: mean, var
 using Random: bitrand
 using RestrictedBoltzmannMachines: RBM, Binary, free_energy, ReLU,
-    sample_v_from_v, sample_h_from_h,
     mean_h_from_v, var_h_from_v, mean_v_from_h, var_v_from_h
 using StandardizedRBMs: standardize, rescale_hidden_activations!
 
@@ -15,6 +14,7 @@ using StandardizedRBMs: standardize, rescale_hidden_activations!
     rbm.hidden.γ .+= 0.5
 
     v = bitrand(3, 1000)
+    F = free_energy(rbm, v)
     h_ave = mean_h_from_v(rbm, v)
     h_var = var_h_from_v(rbm, v)
     v_ave = mean_v_from_h(rbm, h_ave)
@@ -28,4 +28,5 @@ using StandardizedRBMs: standardize, rescale_hidden_activations!
     @test mean_v_from_h(rbm, h_ave ./ λ) ≈ v_ave
     @test var_v_from_h(rbm, h_ave ./ λ) ≈ v_var
     @test all(rbm.scale_h .≈ 1)
+    @test free_energy(rbm, v) ≈ F .+ sum(log, λ)
 end
