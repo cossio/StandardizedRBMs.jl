@@ -4,7 +4,7 @@
 ![](https://github.com/cossio/StandardizedRBMs.jl.jl/workflows/CI/badge.svg)
 [![codecov](https://codecov.io/gh/cossio/StandardizedRBMs.jl.jl/branch/master/graph/badge.svg?token=90I3AJIZIG)](https://codecov.io/gh/cossio/StandardizedRBMs.jl.jl)
 
-Train and sample *standardized* Restricted Boltzmann machines in Julia. It means that the energy is given by:
+Train and sample a *standardized* Restricted Boltzmann machine in Julia. The energy is given by:
 
 $$
 E(\mathbf{v},\mathbf{h}) = - \sum_{i}\theta_{i}v_{i} - \sum_{\mu}\theta_{\mu}h_{\mu} - \sum_{i\mu}w_{i\mu} \frac{v_{i} - \lambda_{i}}{\sigma_{i}}\frac{h_{\mu} - \lambda_{\mu}}{\sigma_{\mu}}

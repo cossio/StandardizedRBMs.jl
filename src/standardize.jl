@@ -22,7 +22,7 @@ standardize(
 function standardize_visible(std_rbm::StandardizedRBM, offset_v::AbstractArray, scale_v::AbstractArray)
     @assert size(std_rbm.visible) == size(offset_v) == size(scale_v)
 
-    cv = reshape(scale_v ./ std_rbm.scale_v, size(std_rbm.visible)..., map(one, size(std_rbm.hidden)...))
+    cv = reshape(scale_v ./ std_rbm.scale_v, size(std_rbm.visible)..., map(one, size(std_rbm.hidden))...)
     Δθ = inputs_h_from_v(std_rbm, offset_v)
 
     hid = shift_fields(std_rbm.hidden, Δθ)
@@ -35,7 +35,7 @@ end
 function standardize_hidden(std_rbm::StandardizedRBM, offset_h::AbstractArray, scale_h::AbstractArray)
     @assert size(std_rbm.hidden) == size(offset_h) == size(scale_h)
 
-    ch = reshape(scale_h ./ std_rbm.scale_h, map(one, size(std_rbm.visible)...), size(std_rbm.hidden)...)
+    ch = reshape(scale_h ./ std_rbm.scale_h, map(one, size(std_rbm.visible))..., size(std_rbm.hidden)...)
     Δθ = inputs_v_from_h(std_rbm, offset_h)
 
     vis = shift_fields(std_rbm.visible, Δθ)
@@ -63,7 +63,7 @@ end
 function standardize_visible!(rbm::StandardizedRBM, offset_v::AbstractArray, scale_v::AbstractArray)
     @assert size(rbm.visible) == size(offset_v) == size(scale_v)
 
-    cv = reshape(scale_v ./ rbm.scale_v, size(rbm.visible)..., map(one, size(rbm.hidden)...))
+    cv = reshape(scale_v ./ rbm.scale_v, size(rbm.visible)..., map(one, size(rbm.hidden))...)
     Δθ = inputs_h_from_v(rbm, offset_v)
 
     shift_fields!(rbm.hidden, Δθ)
@@ -77,7 +77,7 @@ end
 function standardize_hidden!(rbm::StandardizedRBM, offset_h::AbstractArray, scale_h::AbstractArray)
     @assert size(rbm.hidden) == size(offset_h) == size(scale_h)
 
-    ch = reshape(scale_h ./ rbm.scale_h, map(one, size(rbm.visible)...), size(rbm.hidden)...)
+    ch = reshape(scale_h ./ rbm.scale_h, map(one, size(rbm.visible))..., size(rbm.hidden)...)
     Δθ = inputs_v_from_h(rbm, offset_h)
 
     shift_fields!(rbm.visible, Δθ)

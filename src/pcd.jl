@@ -1,58 +1,67 @@
 function RestrictedBoltzmannMachines.pcd!(
     rbm::StandardizedRBM,
     data::AbstractArray;
+
     batchsize::Int = 1,
+
     iters::Int = 1, # number of gradient updates
-    optim::AbstractRule = Adam(),
-    wts = nothing,
+
     steps::Int = 1,
-    moments = moments_from_samples(rbm.visible, data; wts), # sufficient statistics for visible layer,
     vm::AbstractArray = sample_from_inputs(rbm.visible, Falses(size(rbm.visible)..., batchsize)),
+
+    moments = moments_from_samples(rbm.visible, data), # sufficient statistics for visible layer
+
+    # regularization
+    l2_fields::Real = 0, # visible fields L2 regularization
+    l1_weights::Real = 0, # weights L1 regularization
+    l2_weights::Real = 0, # weights L2 regularization
+    l2l1_weights::Real = 0, # weights L2/L1 regularization
+
+    # "pseudocount" for estimating variances of v and h and damping
     damping::Real = 1//100,
-    ϵv::Real = 0, ϵh::Real = 0, # "pseudocount" for estimating variances of v and h
+    ϵv::Real = 0, ϵh::Real = 0,
+
+    # optimiser
+    optim::AbstractRule = Adam(),
     ps = (; visible = rbm.visible.par, hidden = rbm.hidden.par, w = rbm.w),
-    state = setup(optim, ps), # initialize optimiser state
-    callback = Returns(nothing), # called for every batch
-    zerosum::Bool = true, rescale_hidden::Bool = true
+    state = setup(optim, ps),
+
+    rescale_hidden::Bool = true,
+    shuffle::Bool = true,
+
+    # called for every gradient update
+    callback = Returns(nothing)
 )
     @assert size(data) == (size(rbm.visible)..., size(data)[end])
-    @assert isnothing(wts) || _nobs(data) == _nobs(wts)
     @assert 0 ≤ damping ≤ 1
 
-    zerosum && zerosum!(rbm)
+    standardize_visible_from_data!(rbm, data; ϵ = ϵv)
 
-    standardize_visible_from_data!(rbm, data; wts, ϵ = ϵv)
-
-    for (iter, (vd, wd)) in zip(1:iters, infinite_minibatches(data, wts; batchsize, shuffle))
+    for (iter, (vd,)) in zip(1:iters, infinite_minibatches(data; batchsize, shuffle))
         # update fantasy chains
         vm .= sample_v_from_v(rbm, vm; steps)
 
         # update standardization
-        standardize_hidden_from_v!(rbm, vd; damping, wts=wd, ϵ=ϵh)
+        standardize_hidden_from_v!(rbm, vd; damping, ϵ=ϵh)
 
         # compute gradient
-        ∂d = ∂free_energy(rbm, vd; wts = wd, moments)
+        ∂d = ∂free_energy(rbm, vd; moments)
         ∂m = ∂free_energy(rbm, vm)
         ∂ = ∂d - ∂m
 
-        # correct weighted minibatch bias
-        batch_weight = isnothing(wts) ? 1 : mean(wd) / wts_mean
-        ∂ *= batch_weight
-
         # weight decay
-        ∂regularize!(∂, rbm; l2_fields, l1_weights, l2_weights, l2l1_weights, zerosum)
+        ∂regularize!(∂, rbm; l2_fields, l1_weights, l2_weights, l2l1_weights)
 
         # feed gradient to Optimiser rule
         gs = (; visible = ∂.visible, hidden = ∂.hidden, w = ∂.w)
         state, ps = update!(state, ps, gs)
 
-        zerosum && zerosum!(rbm)
         rescale_hidden && rescale_hidden_activations!(rbm)
 
-        callback(; rbm, optim, iter, vm, vd, wd)
+        callback(; rbm, optim, iter, vm, vd)
     end
 
-    return rbm
+    return state, ps
 end
 
 RestrictedBoltzmannMachines.∂regularize!(∂::∂RBM, rbm::StandardizedRBM; kwargs...) = ∂regularize!(∂, RBM(rbm); kwargs...)

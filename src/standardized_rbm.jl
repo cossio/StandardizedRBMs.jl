@@ -69,8 +69,8 @@ function RestrictedBoltzmannMachines.free_energy(rbm::StandardizedRBM, v::Abstra
 end
 
 function RestrictedBoltzmannMachines.∂free_energy(
-    rbm::StandardizedRBM, v::AbstractArray; wts = nothing,
-    moments = moments_from_samples(rbm.visible, v; wts)
+    rbm::StandardizedRBM, v::AbstractArray;
+    wts = nothing, moments = moments_from_samples(rbm.visible, v; wts)
 )
     inputs = inputs_h_from_v(rbm, v)
     ∂v = ∂energy_from_moments(rbm.visible, moments)
@@ -80,7 +80,7 @@ function RestrictedBoltzmannMachines.∂free_energy(
     ∂h = reshape(wmean(-∂Γ; wts, dims = (ndims(rbm.hidden.par) + 1):ndims(∂Γ)), size(rbm.hidden.par))
     ∂w = ∂interaction_energy(rbm, v, h; wts)
 
-    return (visible = ∂v, hidden = ∂h, w = ∂w)
+    return ∂RBM(∂v, ∂h, ∂w)
 end
 
 function RestrictedBoltzmannMachines.∂interaction_energy(

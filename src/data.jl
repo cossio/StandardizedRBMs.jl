@@ -1,13 +1,13 @@
 function standardize_visible_from_data!(rbm::StandardizedRBM, data::AbstractArray; wts = nothing, ϵ::Real = 0)
     μ = batchmean(rbm.visible, data; wts)
-    ν = batchvar(rbm.visible, data; wts, mean=u)
-    return standardize_visible!(rbm, μ, sqrt(ν .+ ϵ))
+    ν = batchvar(rbm.visible, data; wts, mean=μ)
+    return standardize_visible!(rbm, μ, sqrt.(ν .+ ϵ))
 end
 
 function standardize_hidden_from_inputs!(rbm::StandardizedRBM, inputs::AbstractArray; wts = nothing, damping::Real = 0, ϵ::Real = 0)
     μ, ν = hidden_statistics_from_inputs(rbm.hidden, inputs; wts)
-    offset_h .= (1 - damping) .* rbm.offset_h + damping .* μ
-    scale_h .= (1 - damping) .* rbm.scale_h.^2 + damping .* sqrt.(ν .+ ϵ)
+    offset_h = (1 - damping) .* rbm.offset_h + damping .* μ
+    scale_h = (1 - damping) .* rbm.scale_h.^2 + damping .* sqrt.(ν .+ ϵ)
     return standardize_hidden!(rbm, offset_h, scale_h)
 end
 

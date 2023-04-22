@@ -19,7 +19,7 @@ using RestrictedBoltzmannMachines: RBM, AbstractLayer, BinaryRBM,
     mean_from_inputs, var_from_inputs,
     interaction_energy, log_pseudolikelihood,
     batchmean, batchvar, batchcov,
-    rescale_activations!
+    rescale_activations!, ∂regularize!
 
 include("standardized_rbm.jl")
 include("standardize.jl")
@@ -28,6 +28,7 @@ include("binary_standardized_rbm.jl")
 include("layers.jl")
 include("pcd.jl")
 include("gpu.jl")
-include("rescale_hidden.jl")
+include("gauge.jl")
+include("regularize.jl")
 
 end # module
