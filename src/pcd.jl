@@ -58,10 +58,8 @@ function RestrictedBoltzmannMachines.pcd!(
 
         rescale_hidden && rescale_hidden_activations!(rbm)
 
-        callback(; rbm, optim, iter, vm, vd)
+        callback(; rbm, optim, iter, vm, vd, ∂)
     end
 
     return state, ps
 end
-
-RestrictedBoltzmannMachines.∂regularize!(∂::∂RBM, rbm::StandardizedRBM; kwargs...) = ∂regularize!(∂, RBM(rbm); kwargs...)
