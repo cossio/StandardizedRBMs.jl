@@ -3,6 +3,7 @@ function RestrictedBoltzmannMachines.pcd!(
     data::AbstractArray;
 
     batchsize::Int = 1,
+    shuffle::Bool = true,
 
     iters::Int = 1, # number of gradient updates
 
@@ -26,8 +27,9 @@ function RestrictedBoltzmannMachines.pcd!(
     ps = (; visible = rbm.visible.par, hidden = rbm.hidden.par, w = rbm.w),
     state = setup(optim, ps),
 
+    # Absorb the scale_h into the hidden unit activation (for continuous hidden units).
+    # Results in hidden units with var(h) ~ 1.
     rescale_hidden::Bool = true,
-    shuffle::Bool = true,
 
     # called for every gradient update
     callback = Returns(nothing)
