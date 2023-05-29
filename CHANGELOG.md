@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file. The format 
 
 - This CHANGELOG file.
 
-## v1.1.0
+# v2.0.0
 
-- Register.
 - Change name from StandardizedRBMs to StandardizedRestrictedBoltzmannMachines.
+- Register
