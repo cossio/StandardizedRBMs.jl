@@ -5,7 +5,7 @@ using LinearAlgebra: I
 using RestrictedBoltzmannMachines: RBM, BinaryRBM,
     energy, interaction_energy, free_energy, ∂free_energy,
     inputs_h_from_v, inputs_v_from_h
-using StandardizedRBMs: BinaryStandardizedRBM, StandardizedRBM, delta_energy,
+using StandardizedRestrictedBoltzmannMachines: BinaryStandardizedRBM, StandardizedRBM, delta_energy,
     standardize, unstandardize, standardize_visible, standardize_hidden,
     standardize!, standardize_visible!, standardize_hidden!
 

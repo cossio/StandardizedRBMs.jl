@@ -1,4 +1,4 @@
-module StandardizedRBMs
+module StandardizedRestrictedBoltzmannMachines
 
 import Random
 import Statistics

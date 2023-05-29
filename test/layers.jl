@@ -1,7 +1,7 @@
 using Test: @test, @testset, @inferred
 using RestrictedBoltzmannMachines: energy, sample_from_inputs,
     Binary, Spin, Potts, Gaussian, ReLU, dReLU, pReLU, xReLU
-using StandardizedRBMs: shift_fields, shift_fields!
+using StandardizedRestrictedBoltzmannMachines: shift_fields, shift_fields!
 
 function energy_shift(offset::AbstractArray, x::AbstractArray)
     @assert size(offset) == size(x)[1:ndims(offset)]

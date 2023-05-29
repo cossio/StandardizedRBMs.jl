@@ -1,4 +1,4 @@
-name = "StandardizedRBMs"
+name = "StandardizedRestrictedBoltzmannMachines"
 uuid = "c8d9fdc7-1808-4fba-8c97-f848504396a5"
 authors = ["Jorge Fernandez-de-Cossio-Diaz <j.cossio.diaz@gmail.com>"]
 version = "1.1.0"

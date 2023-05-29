@@ -1,8 +1,8 @@
-# StandardizedRBMs Julia package
+# StandardizedRestrictedBoltzmannMachines Julia package
 
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/cossio/StandardizedRBMs.jl.jl/blob/master/LICENSE.md)
-![](https://github.com/cossio/StandardizedRBMs.jl.jl/workflows/CI/badge.svg)
-[![codecov](https://codecov.io/gh/cossio/StandardizedRBMs.jl/branch/master/graph/badge.svg?token=1Z6ATJ2FPG)](https://codecov.io/gh/cossio/StandardizedRBMs.jl)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/cossio/StandardizedRestrictedBoltzmannMachines.jl.jl/blob/master/LICENSE.md)
+![](https://github.com/cossio/StandardizedRestrictedBoltzmannMachines.jl.jl/workflows/CI/badge.svg)
+[![codecov](https://codecov.io/gh/cossio/StandardizedRestrictedBoltzmannMachines.jl/branch/master/graph/badge.svg?token=1Z6ATJ2FPG)](https://codecov.io/gh/cossio/StandardizedRestrictedBoltzmannMachines.jl)
 
 Train and sample a *standardized* Restricted Boltzmann machine in Julia. The energy is given by:
 
@@ -18,7 +18,7 @@ This package is not registered. Install with:
 
 ```julia
 using Pkg
-Pkg.add(url="https://github.com/cossio/StandardizedRBMs.jl")
+Pkg.add(url="https://github.com/cossio/StandardizedRestrictedBoltzmannMachines.jl")
 ```
 
 This package does not export any symbols.

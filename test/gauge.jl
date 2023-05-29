@@ -4,7 +4,7 @@ using Statistics: mean, var
 using Random: bitrand
 using RestrictedBoltzmannMachines: RBM, Binary, free_energy, ReLU,
     mean_h_from_v, var_h_from_v, mean_v_from_h, var_v_from_h
-using StandardizedRBMs: standardize, rescale_hidden_activations!
+using StandardizedRestrictedBoltzmannMachines: standardize, rescale_hidden_activations!
 
 @testset "rescale_hidden_activations!" begin
     rbm = standardize(

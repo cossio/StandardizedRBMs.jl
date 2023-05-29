@@ -9,3 +9,4 @@ All notable changes to this project will be documented in this file. The format 
 ## v1.1.0
 
 - Register.
+- Change name from StandardizedRBMs to StandardizedRestrictedBoltzmannMachines.

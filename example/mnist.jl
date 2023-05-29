@@ -1,4 +1,4 @@
-using StandardizedRBMs: standardize
+using StandardizedRestrictedBoltzmannMachines: standardize
 using RestrictedBoltzmannMachines: RBM, Binary, xReLU, pcd!, initialize!,
     sample_from_inputs, sample_h_from_v, sample_v_from_v, mean_from_inputs,
     free_energy
