@@ -6,6 +6,6 @@ All notable changes to this project will be documented in this file. The format 
 
 - This CHANGELOG file.
 
-## v0.0.0
+## v1.1.0
 
-- Empty.
+- Register.
