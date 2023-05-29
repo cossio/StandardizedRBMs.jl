@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/cossio/StandardizedRBMs.jl.jl/blob/master/LICENSE.md)
 ![](https://github.com/cossio/StandardizedRBMs.jl.jl/workflows/CI/badge.svg)
-[![codecov](https://codecov.io/gh/cossio/StandardizedRBMs.jl.jl/branch/master/graph/badge.svg?token=90I3AJIZIG)](https://codecov.io/gh/cossio/StandardizedRBMs.jl.jl)
+[![codecov](https://codecov.io/gh/cossio/StandardizedRBMs.jl/branch/master/graph/badge.svg?token=1Z6ATJ2FPG)](https://codecov.io/gh/cossio/StandardizedRBMs.jl)
 
 Train and sample a *standardized* Restricted Boltzmann machine in Julia. The energy is given by:
 
