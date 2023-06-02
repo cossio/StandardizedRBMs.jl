@@ -14,11 +14,11 @@ with some offset parameters $\lambda_i,\lambda_\mu$ and scaling parameters $\sig
 
 ## Installation
 
-This package is not registered. Install with:
+This package is registered. Install with:
 
 ```julia
 using Pkg
-Pkg.add(url="https://github.com/cossio/StandardizedRestrictedBoltzmannMachines.jl")
+Pkg.add("StandardizedRestrictedBoltzmannMachines")
 ```
 
 This package does not export any symbols.
