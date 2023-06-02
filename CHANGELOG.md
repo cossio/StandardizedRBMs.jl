@@ -4,8 +4,6 @@ All notable changes to this project will be documented in this file. The format 
 
 ## Unreleased
 
-- This CHANGELOG file.
-
 # v2.0.0
 
 - Change name from StandardizedRBMs to StandardizedRestrictedBoltzmannMachines.
