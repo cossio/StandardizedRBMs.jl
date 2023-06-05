@@ -37,3 +37,5 @@ docs/src/literate/*.md
 
 # profiling
 *.pb.gz
+
+.DS_Store
