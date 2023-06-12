@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file. The format 
 
 ## Unreleased
 
+# v3.0.0
+
+- Moved GPU methods to `CudaRBMs.jl` package.
+
 # v2.0.0
 
 - Change name from StandardizedRBMs to StandardizedRestrictedBoltzmannMachines.

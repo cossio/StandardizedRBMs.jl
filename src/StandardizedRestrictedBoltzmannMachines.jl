@@ -4,12 +4,10 @@ import Random
 import Statistics
 import LinearAlgebra
 import RestrictedBoltzmannMachines
-import CudaRBMs
 
 using Optimisers: AbstractRule, setup, update!, Adam
 using FillArrays: Falses, Zeros
 using LinearAlgebra: Diagonal, cholesky, diagm, Symmetric, I
-using CudaRBMs: gpu, cpu
 using RestrictedBoltzmannMachines: RBM, AbstractLayer, BinaryRBM,
     moments_from_samples, infinite_minibatches, ∂RBM, cgf, grad2ave, ∂cgfs, wmean,
     Binary, Spin, Potts, Gaussian, ReLU, dReLU, pReLU, xReLU, ∂energy_from_moments,
@@ -27,7 +25,6 @@ include("data.jl")
 include("binary_standardized_rbm.jl")
 include("layers.jl")
 include("pcd.jl")
-include("gpu.jl")
 include("gauge.jl")
 include("regularize.jl")
 
