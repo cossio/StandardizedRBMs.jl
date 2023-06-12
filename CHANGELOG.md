@@ -10,5 +10,5 @@ All notable changes to this project will be documented in this file. The format 
 
 # v2.0.0
 
-- Change name from StandardizedRBMs to StandardizedRestrictedBoltzmannMachines.
-- Register
+- Register.
+- Change name from StandardizedRBMs to StandardizedRestrictedBoltzmannMachines. See comments in [the registration PR](https://github.com/JuliaRegistries/General/pull/84464).
