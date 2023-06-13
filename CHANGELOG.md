@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file. The format 
 
 ## Unreleased
 
+# v3.1.0
+
+- Implement `zerosum!` for `Potts` layers.
+
 # v3.0.0
 
 - Moved GPU methods to `CudaRBMs.jl` package.
