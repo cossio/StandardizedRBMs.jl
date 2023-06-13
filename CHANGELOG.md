@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file. The format 
 
 ## Unreleased
 
+# v4.0.0
+
+- Use `shift_fields` from `RestrictedBoltzmannMachines.jl` and remove from here.
+
 # v3.1.0
 
 - Implement `zerosum!` for `Potts` layers.
