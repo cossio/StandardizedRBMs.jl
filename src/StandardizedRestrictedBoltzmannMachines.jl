@@ -17,13 +17,14 @@ using RestrictedBoltzmannMachines: RBM, AbstractLayer, BinaryRBM,
     mean_from_inputs, var_from_inputs,
     interaction_energy, log_pseudolikelihood,
     batchmean, batchvar, batchcov,
-    rescale_activations!, ∂regularize!, zerosum!
+    rescale_activations!, ∂regularize!, zerosum!,
+    shift_fields, shift_fields!
 
 include("standardized_rbm.jl")
 include("standardize.jl")
 include("data.jl")
 include("binary_standardized_rbm.jl")
-include("layers.jl")
+#include("layers.jl")
 include("pcd.jl")
 include("gauge.jl")
 include("regularize.jl")
