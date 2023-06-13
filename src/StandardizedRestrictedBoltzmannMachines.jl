@@ -27,5 +27,6 @@ include("layers.jl")
 include("pcd.jl")
 include("gauge.jl")
 include("regularize.jl")
+include("zerosum.jl")
 
 end # module
