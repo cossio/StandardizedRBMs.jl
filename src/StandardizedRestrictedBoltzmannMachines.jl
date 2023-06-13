@@ -17,7 +17,7 @@ using RestrictedBoltzmannMachines: RBM, AbstractLayer, BinaryRBM,
     mean_from_inputs, var_from_inputs,
     interaction_energy, log_pseudolikelihood,
     batchmean, batchvar, batchcov,
-    rescale_activations!, ∂regularize!
+    rescale_activations!, ∂regularize!, zerosum!
 
 include("standardized_rbm.jl")
 include("standardize.jl")

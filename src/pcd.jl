@@ -31,6 +31,8 @@ function RestrictedBoltzmannMachines.pcd!(
     # Results in hidden units with var(h) ~ 1.
     rescale_hidden::Bool = true,
 
+    zerosum::Bool = true, # zerosum gauge for Potts layers
+
     # called for every gradient update
     callback = Returns(nothing)
 )
@@ -38,6 +40,7 @@ function RestrictedBoltzmannMachines.pcd!(
     @assert 0 ≤ damping ≤ 1
 
     standardize_visible_from_data!(rbm, data; ϵ = ϵv)
+    zerosum && zerosum!(rbm)
 
     for (iter, (vd,)) in zip(1:iters, infinite_minibatches(data; batchsize, shuffle))
         # update fantasy chains
@@ -59,6 +62,7 @@ function RestrictedBoltzmannMachines.pcd!(
         state, ps = update!(state, ps, gs)
 
         rescale_hidden && rescale_hidden_activations!(rbm)
+        zerosum && zerosum!(rbm)
 
         callback(; rbm, optim, state, ps, iter, vm, vd, ∂)
     end
