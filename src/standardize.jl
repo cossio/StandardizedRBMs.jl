@@ -57,7 +57,8 @@ function standardize!(rbm::StandardizedRBM, offset_v::AbstractArray, offset_h::A
     @assert size(rbm.visible) == size(offset_v) == size(scale_v)
     @assert size(rbm.hidden) == size(offset_h) == size(scale_h)
     standardize_visible!(rbm, offset_v, scale_v)
-    return standardize_hidden!(rbm, offset_h, scale_h)
+    standardize_hidden!(rbm, offset_h, scale_h)
+    return rbm
 end
 
 function standardize_visible!(rbm::StandardizedRBM, offset_v::AbstractArray, scale_v::AbstractArray)
