@@ -23,5 +23,5 @@ function hidden_statistics_from_inputs(layer::AbstractLayer, inputs::AbstractArr
     ν_int = batchmean(layer, h_var; wts)
     ν_ext = batchvar(layer, h_ave; wts, mean = μ)
     ν = ν_int + ν_ext # law of total variance
-    return (μ = μ, ν = ν)
+    return (; μ, ν)
 end
