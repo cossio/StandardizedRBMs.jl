@@ -1,19 +1,32 @@
-using StandardizedRestrictedBoltzmannMachines: standardize
-using RestrictedBoltzmannMachines: RBM, Binary, xReLU, pcd!, initialize!,
-    sample_from_inputs, sample_h_from_v, sample_v_from_v, mean_from_inputs,
-    free_energy
-using CudaRBMs: gpu, cpu
-using MLDatasets: MNIST
-using Optimisers: Adam
-using Statistics: mean, std, var, cov, cor
-using Random: bitrand
-import Makie
 import CairoMakie
-using Images: Gray, gray
-using MosaicViews: mosaicview
-using EllipsisNotation: (..)
+import Makie
 import StatsBase
+using CudaRBMs: cpu
+using CudaRBMs: gpu
+using EllipsisNotation: (..)
+using Images: gray
+using Images: Gray
+using MLDatasets: MNIST
+using MosaicViews: mosaicview
+using Optimisers: Adam
 using ProgressMeter: @showprogress
+using Random: bitrand
+using RestrictedBoltzmannMachines: Binary
+using RestrictedBoltzmannMachines: free_energy
+using RestrictedBoltzmannMachines: initialize!
+using RestrictedBoltzmannMachines: mean_from_inputs
+using RestrictedBoltzmannMachines: pcd!
+using RestrictedBoltzmannMachines: RBM
+using RestrictedBoltzmannMachines: sample_from_inputs
+using RestrictedBoltzmannMachines: sample_h_from_v
+using RestrictedBoltzmannMachines: sample_v_from_v
+using RestrictedBoltzmannMachines: xReLU
+using StandardizedRestrictedBoltzmannMachines: standardize
+using Statistics: cor
+using Statistics: cov
+using Statistics: mean
+using Statistics: std
+using Statistics: var
 
 train_x = MNIST(split=:train).features .> 0.5
 train_y = MNIST(split=:train).targets
@@ -80,7 +93,7 @@ mosaicview(Gray.(cpu(vm)[.., 1:36]), nrow=6)'
 sampled_v = sample_from_inputs(rbm.visible, gpu(zeros(28, 28, 5000)));
 sampled_v = gpu(bitrand(28, 28, 5000));
 sampled_f = zeros(1000)
-@showprogress for t in 1:length(sampled_f)
+@showprogress for t = 1:length(sampled_f)
     sampled_v .= sample_v_from_v(rbm, sampled_v; steps=100)
     sampled_f[t] = mean(free_energy(rbm, sampled_v))
 end
