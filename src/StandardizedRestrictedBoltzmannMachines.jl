@@ -54,6 +54,7 @@ using RestrictedBoltzmannMachines: sample_v_from_v
 using RestrictedBoltzmannMachines: shift_fields
 using RestrictedBoltzmannMachines: shift_fields!
 using RestrictedBoltzmannMachines: Spin
+using RestrictedBoltzmannMachines: SpinRBM
 using RestrictedBoltzmannMachines: var_from_inputs
 using RestrictedBoltzmannMachines: wmean
 using RestrictedBoltzmannMachines: xReLU
