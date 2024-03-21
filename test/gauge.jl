@@ -1,17 +1,26 @@
 import Random
-using Test: @test, @testset, @inferred
-using Statistics: mean, var
 using Random: bitrand
-using RestrictedBoltzmannMachines: RBM, Binary, free_energy, ReLU,
-    mean_h_from_v, var_h_from_v, mean_v_from_h, var_v_from_h
-using StandardizedRestrictedBoltzmannMachines: standardize, rescale_hidden_activations!
+using RestrictedBoltzmannMachines: Binary
+using RestrictedBoltzmannMachines: free_energy
+using RestrictedBoltzmannMachines: mean_h_from_v
+using RestrictedBoltzmannMachines: mean_v_from_h
+using RestrictedBoltzmannMachines: RBM
+using RestrictedBoltzmannMachines: ReLU
+using RestrictedBoltzmannMachines: var_h_from_v
+using RestrictedBoltzmannMachines: var_v_from_h
+using StandardizedRestrictedBoltzmannMachines: rescale_hidden_activations!
+using StandardizedRestrictedBoltzmannMachines: standardize
+using Statistics: mean
+using Statistics: var
+using Test: @inferred
+using Test: @test
+using Test: @testset
 
 @testset "rescale_hidden_activations!" begin
     rbm = standardize(
-        RBM(Binary(; θ=randn(3)), ReLU(; θ=randn(2), γ=rand(2)), randn(3,2)),
-        randn(3), randn(2), rand(3), rand(2)
+        RBM(Binary(; θ=randn(3)), ReLU(; θ=randn(2), γ=0.1 .+ rand(2)), randn(3,2)),
+        randn(3), randn(2), 0.1 .+ rand(3), 0.1 .+ rand(2)
     )
-    rbm.hidden.γ .+= 0.5
 
     v = bitrand(3, 1000)
     F = free_energy(rbm, v)
