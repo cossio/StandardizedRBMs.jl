@@ -7,7 +7,6 @@ end
 function standardize_hidden_from_inputs!(rbm::StandardizedRBM, inputs::AbstractArray; wts = nothing, damping::Real = 0, ϵ::Real = 0)
     μ, ν = hidden_statistics_from_inputs(rbm.hidden, inputs; wts)
     offset_h = (1 - damping) .* rbm.offset_h + damping .* μ
-    # scale_h = (1 - damping) .* rbm.scale_h.^2 + damping .* sqrt.(ν .+ ϵ)
     scale_h = sqrt.((1 - damping) .* rbm.scale_h.^2 + damping .* (ν .+ ϵ))
     return standardize_hidden!(rbm, offset_h, scale_h)
 end
