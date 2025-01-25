@@ -1,5 +1,8 @@
 # StandardizedRestrictedBoltzmannMachines Julia package
 
+> [!WARNING]
+> This package is deprecated. Its functionality has been incorporated in the [`RestrictedBoltzmannMachines`](https://github.com/cossio/RestrictedBoltzmannMachines.jl) package.
+
 Train and sample a *standardized* Restricted Boltzmann machine in Julia. The energy is given by:
 
 $$E(\mathbf{v},\mathbf{h}) = - \sum_{i}\theta_{i}v_{i} - \sum_{\mu}\theta_{\mu}h_{\mu} - \sum_{i\mu}w_{i\mu} \frac{v_{i} - \lambda_{i}}{\sigma_{i}}\frac{h_{\mu} - \lambda_{\mu}}{\sigma_{\mu}}$$
